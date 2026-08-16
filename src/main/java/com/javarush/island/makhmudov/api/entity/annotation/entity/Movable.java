@@ -1,4 +1,7 @@
 package com.javarush.island.makhmudov.api.entity.annotation.entity;
 
-public class Movable {
+import com.javarush.island.khmelov.entity.map.Cell;
+
+public interface Movable {
+    boolean move(Cell startCell);
 }

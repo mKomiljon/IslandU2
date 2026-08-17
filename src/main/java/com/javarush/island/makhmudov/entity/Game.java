@@ -1,6 +1,7 @@
 package com.javarush.island.makhmudov.entity;
 
 import com.javarush.island.makhmudov.api.init.Initialization;
+import com.javarush.island.makhmudov.api.view.View;
 import com.javarush.island.makhmudov.entity.map.GameMap;
 import lombok.Getter;
 import lombok.Setter;

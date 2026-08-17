@@ -4,5 +4,17 @@ import com.javarush.island.makhmudov.api.entity.Eating;
 import com.javarush.island.makhmudov.api.entity.Reproducible;
 import com.javarush.island.makhmudov.api.entity.Movable;
 
-public abstract class Organism implements Movable, Eating, Reproducible, cloneable {
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicLong;
+
+public abstract class Organism implements Movable, Eating, Reproducible {
+    private final static AtomicLong idCounter = new AtomicLong(System.currentTimeMillis());
+
+    private final Set<Map.Entry<String, Integer>> foodMap;
+    private long id = idCounter.incrementAndGet();
+
+    protected Organism(Set<Map.Entry<String, Integer>> foodMap) {
+        this.foodMap = foodMap;
+    }
 }

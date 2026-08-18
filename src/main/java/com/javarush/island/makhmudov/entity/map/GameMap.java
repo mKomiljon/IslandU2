@@ -1,7 +1,6 @@
 package com.javarush.island.makhmudov.entity.map;
 
-import com.javarush.island.khmelov.config.Setting;
-import com.javarush.island.khmelov.entity.map.Residents;
+import com.javarush.island.makhmudov.config.Setting;
 import com.javarush.island.makhmudov.entity.organism.Organism;
 import lombok.Getter;
 

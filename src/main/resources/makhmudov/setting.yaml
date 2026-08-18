@@ -1,15 +1,15 @@
 ---
 life:
-  period: 100
-  rows: 20
-  cols: 25
+  period: 50
+  rows: 10
+  cols: 15
   percentAnimalSlim: 3
   percentPlantGrow: 25
 
 console:
-    showRows: 20
-    showCols: 15
-    cellCharCount: 4
+  showRows: 20
+  showCols: 10
+  cellCharCount: 4
 
 window:
   width: 1400

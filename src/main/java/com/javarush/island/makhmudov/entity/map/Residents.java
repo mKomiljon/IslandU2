@@ -15,8 +15,11 @@ public class Residents extends ConcurrentHashMap<String, Organisms> {
 
     @Override
     public Organisms get(Object key) {
-        checkNull(key);
-        return super.get(key);
+        if (key == null) {
+            return null;
+        }
+        // Если ключа нет, автоматически создастся новый new Organisms() и положится в карту
+        return this.computeIfAbsent(key.toString(), k -> new Organisms());
     }
 
     @Override

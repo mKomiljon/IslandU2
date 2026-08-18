@@ -1,4 +1,4 @@
-package com.javarush.island.makhmudov.view;
+package com.javarush.island.makhmudov.view.console;
 
 public class Symbols {
     public static final char LEFT_TOP = '╔';

@@ -1,4 +1,4 @@
-package com.javarush.island.makhmudov.view;
+package com.javarush.island.makhmudov.view.console;
 
 import com.javarush.island.makhmudov.entity.map.Cell;
 import com.javarush.island.makhmudov.config.Console;
@@ -10,12 +10,12 @@ import java.util.StringJoiner;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static com.javarush.island.khmelov.view.console.Symbols.BLANK;
-import static com.javarush.island.khmelov.view.console.Symbols.DOT;
-import static com.javarush.island.makhmudov.view.Symbols.*;
-import static com.javarush.island.makhmudov.view.Symbols.INF_MARGIN;
+import static com.javarush.island.makhmudov.view.console.Symbols.BLANK;
+import static com.javarush.island.makhmudov.view.console.Symbols.DOT;
+import static com.javarush.island.makhmudov.view.console.Symbols.*;
+import static com.javarush.island.makhmudov.view.console.Symbols.INF_MARGIN;
 
-public class ConsoleVeiw implements View {
+public class ConsoleView implements View {
 
     private int rows;
     private int cols;
@@ -30,7 +30,7 @@ public class ConsoleVeiw implements View {
     private final String bottomBorder;
     private final String bottomInfBorder;
 
-    public ConsoleVeiw(GameMap gameMap) {
+    public ConsoleView(GameMap gameMap) {
         final Console console = Setting.get().console;
         this.gameMap = gameMap;
 

@@ -1,4 +1,4 @@
-package com.javarush.island.makhmudov.view;
+package com.javarush.island.makhmudov.view.console;
 
 @SuppressWarnings("unused")
 public class Color {

@@ -1,12 +1,12 @@
 package com.javarush.island.makhmudov.entity.organism;
 
+import com.javarush.island.makhmudov.api.entity.Eating;
+import com.javarush.island.makhmudov.api.entity.Movable;
+import com.javarush.island.makhmudov.api.entity.Reproducible;
 import com.javarush.island.makhmudov.config.Setting;
 import com.javarush.island.makhmudov.entity.map.Cell;
 import com.javarush.island.makhmudov.entity.map.Residents;
 import com.javarush.island.makhmudov.util.Rnd;
-import com.javarush.island.makhmudov.api.entity.Eating;
-import com.javarush.island.makhmudov.api.entity.Reproducible;
-import com.javarush.island.makhmudov.api.entity.Movable;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,10 +20,10 @@ import java.util.concurrent.atomic.AtomicLong;
 @SuppressWarnings("unused")
 @Getter
 @EqualsAndHashCode(of = "id")
-public abstract class Organism implements Movable, Eating, Reproducible {
+public abstract class Organism implements Movable, Eating, Reproducible, Cloneable {
+
     private final static AtomicLong idCounter = new AtomicLong(System.currentTimeMillis());
     private final Set<Map.Entry<String, Integer>> foodMap;
-    private final Limit limit;
 
     private long id = idCounter.incrementAndGet();
 
@@ -45,11 +45,13 @@ public abstract class Organism implements Movable, Eating, Reproducible {
     private transient final String letter = type.substring(0, 1);
     @Setter
     private double weight;
+    private final Limit limit;
 
     @Override
     public String toString() {
         return icon;
     }
+
     @Override
     protected Organism clone() throws CloneNotSupportedException {
         Organism clone = (Organism) super.clone();
@@ -65,6 +67,7 @@ public abstract class Organism implements Movable, Eating, Reproducible {
         } catch (CloneNotSupportedException e) {
             throw new AssertionError(e);
         }
+
     }
 
     protected boolean isHere(Cell cell) {
@@ -72,14 +75,18 @@ public abstract class Organism implements Movable, Eating, Reproducible {
     }
 
     private boolean contains(Organism organism) {
-        return false;
+        return true;
     }
+
 
     protected boolean safeDie(Cell target) {
         target.getLock().lock();
         try {
             return isHere(target)
-                    && target.getResidents().get(type).remove(this);
+                    && target
+                    .getResidents()
+                    .get(type)
+                    .remove(this);
         } finally {
             target.getLock().unlock();
         }
@@ -107,24 +114,13 @@ public abstract class Organism implements Movable, Eating, Reproducible {
 
     protected boolean safeMove(Cell source, Cell destination) {
         if (safeAddTo(destination)) {
-            if (safePollForm(source)) {
+            if (safePollFrom(source)) {
                 return true;
             } else {
-                safePollForm(destination);
+                safePollFrom(destination);
             }
         }
         return false;
-    }
-
-    protected boolean safePollForm(Cell cell) {
-        cell.getLock().lock();
-        try {
-            Residents residents = cell.getResidents();
-            Organism organisms = residents.get(getType());
-            return isHere(cell) && organisms.remove(this);
-        } finally {
-            cell.getLock().unlock();
-        }
     }
 
     protected boolean safeAddTo(Cell cell) {
@@ -134,8 +130,27 @@ public abstract class Organism implements Movable, Eating, Reproducible {
                     .getResidents()
                     .get(getType());
             int maxCount = getLimit().getMaxCountInCell();
-            int size = Organisms.size();
-            return size < maxCount && Organisms.add(this);
+            int size = organisms.size();
+            return size < maxCount && organisms.add(this);
+        } finally {
+            cell.getLock().unlock();
+        }
+    }
+
+    private boolean add(Organism organism) {
+        return true;
+    }
+
+    private int size() {
+        return 0;
+    }
+
+    protected boolean safePollFrom(Cell cell) {
+        cell.getLock().lock();
+        try {
+            Residents residents = cell.getResidents();
+            Organism organisms = residents.get(getType());
+            return isHere(cell) && organisms.remove(this);
         } finally {
             cell.getLock().unlock();
         }
@@ -161,7 +176,7 @@ public abstract class Organism implements Movable, Eating, Reproducible {
                                 double foodWeight = o.getWeight();
                                 double delta = Math.min(foodWeight, needFood);
                                 setWeight(getWeight() + delta);
-                                o.setWeight(getWeight() - delta);
+                                o.setWeight(foodWeight - delta);
                                 if (o.getWeight() <= 0) {
                                     organismIterator.remove();
                                 }
@@ -181,13 +196,19 @@ public abstract class Organism implements Movable, Eating, Reproducible {
         return foodFound;
     }
 
-    protected abstract Iterator<Organism> iterator();
+    private Iterator<Organism> iterator() {
+        return null;
+    }
 
-    protected abstract boolean isEmpty();
+    private boolean isEmpty() {
+        return true;
+    }
 
-    protected double getNeedFood() {
-        return Math.min(getLimit().getMaxFood(),
+    private double getNeedFood() {
+        return Math.min(
+                getLimit().getMaxFood(),
                 getLimit().getMaxWeight() - getWeight());
     }
+
 }
 

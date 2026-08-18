@@ -1,6 +1,5 @@
 package com.javarush.island.makhmudov.entity.organism;
 
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -11,9 +10,10 @@ public class Organisms {
     private final Set<Organism> organisms = new LinkedHashSet<>();
     private Limit limit;
     private String icon = "?";
+
     private String letter = "?";
 
-    public static int size() {
+    public int size() {
         return organisms.size();
     }
 
@@ -31,18 +31,22 @@ public class Organisms {
         }
         return size;
     }
+
     public String getIcon() {
         update();
         return icon;
     }
+
     public String getLetter() {
         update();
         return letter;
     }
+
     public Limit getLimit() {
         update();
         return limit;
     }
+
     private void update() {
         if (limit == null) {
             if (!organisms.isEmpty()) {
@@ -53,28 +57,36 @@ public class Organisms {
             }
         }
     }
-    public void addAll(Collection<Organism> newOrganisms) {
+
+    public void addAll(Set<Organism> newOrganisms) {
         organisms.addAll(newOrganisms);
     }
-    public static boolean add(Organism organism) {
+
+    public boolean add(Organism organism) {
         return organisms.add(organism);
     }
-    public boolean remove(Organism organism) {
-        return organisms.remove(organism);
-    }
+
     public boolean contains(Organism organism) {
         return organisms.contains(organism);
     }
-    public boolean isEmpty() {
-        return organisms.isEmpty();
+
+    public boolean remove(Organism organism) {
+        return organisms.remove(organism);
     }
+
     public void forEach(Consumer<? super Organism> action) {
         organisms.forEach(action);
     }
+
     public Stream<Organism> stream() {
         return organisms.stream();
     }
+
     public Iterator<Organism> iterator() {
         return organisms.iterator();
+    }
+
+    public boolean isEmpty() {
+        return organisms.isEmpty();
     }
 }

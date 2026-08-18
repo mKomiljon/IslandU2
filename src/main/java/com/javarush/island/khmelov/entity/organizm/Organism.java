@@ -90,6 +90,10 @@ public abstract class Organism implements Movable, Eating, Reproducible, Cloneab
         }
     }
 
+    private boolean remove(Organism organism) {
+        return false;
+    }
+
     protected boolean safeChangeWeight(Cell currentCell, int percent) {
         currentCell.getLock().lock();
         try {
@@ -105,7 +109,6 @@ public abstract class Organism implements Movable, Eating, Reproducible, Cloneab
             currentCell.getLock().unlock();
         }
     }
-
 
     protected boolean safeMove(Cell source, Cell destination) {
         if (safeAddTo(destination)) { //if was added

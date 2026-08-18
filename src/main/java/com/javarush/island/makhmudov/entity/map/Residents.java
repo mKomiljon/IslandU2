@@ -1,7 +1,7 @@
-package com.javarush.island.khmelov.entity.map;
+package com.javarush.island.makhmudov.entity.map;
 
-import com.javarush.island.khmelov.entity.organizm.Organisms;
-import com.javarush.island.khmelov.util.Rnd;
+import com.javarush.island.makhmudov.util.Rnd;
+import com.javarush.island.makhmudov.entity.organism.Organisms;
 
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -15,8 +15,11 @@ public class Residents extends ConcurrentHashMap<String, Organisms> {
 
     @Override
     public Organisms get(Object key) {
-        checkNull(key);
-        return super.get(key);
+        if (key == null) {
+            return null;
+        }
+        // Если ключа нет, автоматически создастся новый new Organisms() и положится в карту
+        return this.computeIfAbsent(key.toString(), k -> new Organisms());
     }
 
     @Override

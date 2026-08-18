@@ -1,14 +1,14 @@
-package com.javarush.island.khmelov.config;
+package com.javarush.island.makhmudov.config;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import com.javarush.island.khmelov.entity.organizm.Organism;
-import com.javarush.island.khmelov.entity.organizm.animals.herbivores.*;
-import com.javarush.island.khmelov.entity.organizm.animals.predators.*;
-import com.javarush.island.khmelov.entity.organizm.plants.Grass;
+import com.javarush.island.makhmudov.entity.organism.Organism;
+import com.javarush.island.makhmudov.entity.organism.animals.herbivores.*;
+import com.javarush.island.makhmudov.entity.organism.animals.predators.*;
+import com.javarush.island.makhmudov.entity.organism.plants.Grass;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,15 +23,16 @@ import java.util.Objects;
 @Setter(AccessLevel.PROTECTED)
 public class Setting {
 
-    public static final String SETTING_YAML = "/khmelov/setting.yaml";
+    public static final String SETTING_YAML = "/makhmudov/setting.yaml";
     private static final Class<?>[] TYPES = {
-            Wolf.class, Bear.class, Boar.class, Boa.class, Fox.class, Eagle.class, //.....
+            Wolf.class, Bear.class, Boar.class, Boa.class, Fox.class, Eagle.class, //Yovvoyi
             Horse.class, Mouse.class, Deer.class, Rabbit.class,
-            Goat.class, Sheep.class, Buffalo.class, Duck.class, Caterpillar.class, //.....
+            Goat.class, Sheep.class, Buffalo.class, Duck.class, Caterpillar.class, //Xonaki
             Grass.class,};
     public static final Organism[] PROTOTYPES = EntityScanner.createPrototypes(TYPES);
 
-    //======================== <SAFE_THREAD_SINGLETON> =============================
+//=====================================
+
     private static volatile Setting SETTING;
 
     public static Setting get() {
@@ -45,10 +46,10 @@ public class Setting {
         }
         return setting;
     }
-    //======================== </SAFE_THREAD_SINGLETON> =============================
+//==========================================
 
 
-    //================================ <DATA> =======================================
+
     public final Life life = new Life();
     public final Console console = new Console();
     public final Window window = new Window();
@@ -60,9 +61,8 @@ public class Setting {
         this.foodMap.putIfAbsent(keyName, new LinkedHashMap<>());
         return foodMap.get(keyName);
     }
-    //================================ </DATA> =======================================
 
-    //================================ <INIT> ========================================
+//==================================
 
     private Setting() {
         loadFromDefault();
@@ -76,7 +76,7 @@ public class Setting {
             for (int j = 0; j < n; j++) {
                 int ratio = Default.setProbablyTable[i][j];
                 if (ratio > 0) {
-                    this.foodMap.get(key).put(Default.names[j], ratio);
+                    this.foodMap.get(key).put(Default.names[i], ratio);
                 }
             }
         }
@@ -91,9 +91,9 @@ public class Setting {
             readerForUpdating.readValue(resource.openStream());
         }
     }
-    //=============================== </INIT> ========================================
 
-    //=============================== <FOR DEBUG ONLY> ===============================
+//==============================
+
     @Override
     public String toString() {
         ObjectMapper yaml = new ObjectMapper(new YAMLFactory());
@@ -104,5 +104,5 @@ public class Setting {
             throw new RuntimeException(e);
         }
     }
-    //=============================== </FOR DEBUG ONLY> ===============================
+//    ===============================
 }

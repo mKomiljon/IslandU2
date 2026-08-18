@@ -1,12 +1,12 @@
-package com.javarush.island.khmelov.entity.organizm;
+package com.javarush.island.makhmudov.entity.organism;
 
-import com.javarush.island.khmelov.api.entity.Eating;
-import com.javarush.island.khmelov.api.entity.Movable;
-import com.javarush.island.khmelov.api.entity.Reproducible;
-import com.javarush.island.khmelov.config.Setting;
-import com.javarush.island.khmelov.entity.map.Cell;
-import com.javarush.island.khmelov.entity.map.Residents;
-import com.javarush.island.khmelov.util.Rnd;
+import com.javarush.island.makhmudov.api.entity.Eating;
+import com.javarush.island.makhmudov.api.entity.Movable;
+import com.javarush.island.makhmudov.api.entity.Reproducible;
+import com.javarush.island.makhmudov.config.Setting;
+import com.javarush.island.makhmudov.entity.map.Cell;
+import com.javarush.island.makhmudov.entity.map.Residents;
+import com.javarush.island.makhmudov.util.Rnd;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -54,7 +54,7 @@ public abstract class Organism implements Movable, Eating, Reproducible, Cloneab
 
     @Override
     protected Organism clone() throws CloneNotSupportedException {
-        //visible in inherits (cast to Organism)
+
         Organism clone = (Organism) super.clone();
         clone.id = idCounter.incrementAndGet();
         clone.weight = Rnd.random(limit.getMaxWeight() / 2, limit.getMaxWeight());
@@ -63,7 +63,7 @@ public abstract class Organism implements Movable, Eating, Reproducible, Cloneab
 
     @SuppressWarnings("unchecked")
     public static <T extends Organism> T clone(T original) {
-        //for clients (cast to original Type)
+
         try {
             return (T) original.clone();
         } catch (CloneNotSupportedException e) {
@@ -81,10 +81,10 @@ public abstract class Organism implements Movable, Eating, Reproducible, Cloneab
         target.getLock().lock();
         try {
             return isHere(target)
-                   && target
-                           .getResidents()
-                           .get(type)
-                           .remove(this);
+                    && target
+                            .getResidents()
+                            .get(type)
+                            .remove(this);
         } finally {
             target.getLock().unlock();
         }
@@ -111,11 +111,11 @@ public abstract class Organism implements Movable, Eating, Reproducible, Cloneab
     }
 
     protected boolean safeMove(Cell source, Cell destination) {
-        if (safeAddTo(destination)) { //if was added
-            if (safePollFrom(source)) { //and after was extract
-                return true; //ok
+        if (safeAddTo(destination)) {
+            if (safePollFrom(source)) {
+                return true;
             } else {
-                safePollFrom(destination); //died or eaten
+                safePollFrom(destination);
             }
         }
         return false;
@@ -193,3 +193,4 @@ public abstract class Organism implements Movable, Eating, Reproducible, Cloneab
     }
 
 }
+

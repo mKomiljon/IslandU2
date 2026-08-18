@@ -56,7 +56,7 @@ public class Cell {
     @Override
     public String toString() {
         return getResidents().values().stream()
-                .filter((list) -> !list.isEmpty())
+                .filter(list -> !list.isEmpty())
                 .sorted((o1, o2) -> o2.size() - o1.size())
                 .map(set -> set
                         .stream()

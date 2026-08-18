@@ -1,7 +1,6 @@
 package com.javarush.island.makhmudov.entity.organism.animals.herbivores;
 
 import com.javarush.island.makhmudov.entity.organism.Limit;
-import com.javarush.island.makhmudov.entity.organism.animals.herbivores.Herbivore;
 import com.javarush.island.makhmudov.api.annotation.DataType;
 
 @DataType(name = "Утка", icon = "\uD83E\uDD86", maxWeight = 1, maxCountInCell = 200,

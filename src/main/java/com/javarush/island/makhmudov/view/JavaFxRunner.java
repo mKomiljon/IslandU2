@@ -7,6 +7,7 @@ import com.javarush.island.makhmudov.entity.map.GameMap;
 import com.javarush.island.makhmudov.repository.EntityCreator;
 import com.javarush.island.makhmudov.repository.GameMapCreator;
 import com.javarush.island.makhmudov.services.*;
+import com.javarush.island.makhmudov.view.javaFx.JavaFxView;
 
 import java.util.List;
 

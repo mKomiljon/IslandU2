@@ -1,6 +1,6 @@
 package com.javarush.island.makhmudov.entity.map;
 
-import com.javarush.island.khmelov.util.Rnd;
+import com.javarush.island.makhmudov.util.Rnd;
 import com.javarush.island.makhmudov.entity.organism.Organisms;
 
 import java.util.Set;

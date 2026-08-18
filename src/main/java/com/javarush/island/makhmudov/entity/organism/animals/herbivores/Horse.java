@@ -1,7 +1,6 @@
 package com.javarush.island.makhmudov.entity.organism.animals.herbivores;
 
 import com.javarush.island.makhmudov.entity.organism.Limit;
-import com.javarush.island.makhmudov.entity.organism.animals.herbivores.Herbivore;
 import com.javarush.island.makhmudov.api.annotation.DataType;
 
 @DataType(name = "Лошадка", icon = "\uD83D\uDC0E", maxWeight = 400, maxCountInCell = 20,

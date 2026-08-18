@@ -1,4 +1,4 @@
-package com.javarush.island.makhmudov.view;
+package com.javarush.island.makhmudov.view.javaFx;
 
 import com.javarush.island.makhmudov.entity.map.Cell;
 import com.javarush.island.makhmudov.entity.organism.Organisms;

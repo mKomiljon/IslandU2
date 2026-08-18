@@ -1,20 +1,80 @@
 package com.javarush.island.makhmudov.entity.organism;
 
-import com.javarush.island.makhmudov.api.entity.Eating;
-import com.javarush.island.makhmudov.api.entity.Reproducible;
-import com.javarush.island.makhmudov.api.entity.Movable;
-
-import java.util.Map;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.function.Consumer;
+import java.util.stream.Stream;
 
-public abstract class Organisms implements Movable, Eating, Reproducible {
-    private final static AtomicLong idCounter = new AtomicLong(System.currentTimeMillis());
+public class Organisms {
+    private final Set<Organism> organisms = new LinkedHashSet<>();
+    private Limit limit;
+    private String icon = "?";
+    private String letter = "?";
 
-    private final Set<Map.Entry<String, Integer>> foodMap;
-    private long id = idCounter.incrementAndGet();
+    public static int size() {
+        return organisms.size();
+    }
 
-    protected Organisms(Set<Map.Entry<String, Integer>> foodMap) {
-        this.foodMap = foodMap;
+    public double calculateSize() {
+        int size = organisms.size();
+        if (size > 0 && getLimit().getFlockSize() > 1) {
+            double fullWeight = organisms
+                    .stream()
+                    .mapToDouble(Organism::getWeight)
+                    .sum();
+            Limit limit = getLimit();
+            int flockSize = limit.getFlockSize();
+            double part = fullWeight / limit.getMaxWeight();
+            return part * flockSize;
+        }
+        return size;
+    }
+    public String getIcon() {
+        update();
+        return icon;
+    }
+    public String getLetter() {
+        update();
+        return letter;
+    }
+    public Limit getLimit() {
+        update();
+        return limit;
+    }
+    private void update() {
+        if (limit == null) {
+            if (!organisms.isEmpty()) {
+                Organism organism = organisms.iterator().next();
+                limit = organism.getLimit();
+                icon = organism.getIcon();
+                letter = organism.getLetter();
+            }
+        }
+    }
+    public void addAll(Collection<Organism> newOrganisms) {
+        organisms.addAll(newOrganisms);
+    }
+    public static boolean add(Organism organism) {
+        return organisms.add(organism);
+    }
+    public boolean remove(Organism organism) {
+        return organisms.remove(organism);
+    }
+    public boolean contains(Organism organism) {
+        return organisms.contains(organism);
+    }
+    public boolean isEmpty() {
+        return organisms.isEmpty();
+    }
+    public void forEach(Consumer<? super Organism> action) {
+        organisms.forEach(action);
+    }
+    public Stream<Organism> stream() {
+        return organisms.stream();
+    }
+    public Iterator<Organism> iterator() {
+        return organisms.iterator();
     }
 }

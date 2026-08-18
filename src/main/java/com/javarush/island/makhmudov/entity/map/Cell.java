@@ -1,7 +1,6 @@
 package com.javarush.island.makhmudov.entity.map;
 
-import com.javarush.island.makhmudov.entity.map.Residents;
-import com.javarush.island.makhmudov.entity.organism.Organisms;
+import com.javarush.island.makhmudov.entity.organism.Organism;
 import com.javarush.island.makhmudov.util.Rnd;
 import lombok.Getter;
 

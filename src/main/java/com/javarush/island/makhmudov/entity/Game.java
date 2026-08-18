@@ -9,6 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Game {
+
     private final GameMap gameMap;
     private final Initialization entityFactory;
     private View view;

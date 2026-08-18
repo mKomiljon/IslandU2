@@ -31,7 +31,7 @@ public class Grass extends Organism {
         try {
             Organisms plants = cell.getResidents().get(getType());
             if (plants.size() < limit.getMaxCountInCell() &&
-                getWeight() > limit.getMaxWeight() / 2
+                    getWeight() > limit.getMaxWeight() / 2
             ) {
                 Organism newPlant = Organism.clone(this);
                 double childWeight = getWeight() / 10;

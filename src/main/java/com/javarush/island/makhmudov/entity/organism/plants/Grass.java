@@ -29,7 +29,7 @@ public class Grass extends Organism {
         Limit limit = getLimit();
         cell.getLock().lock();
         try {
-            Organism plants = cell.getResidents().get(getType());
+            Organisms plants = cell.getResidents().get(getType());
             if (plants.size() < limit.getMaxCountInCell() &&
                     getWeight() > limit.getMaxWeight() / 2
             ) {

@@ -22,15 +22,16 @@ import java.util.Objects;
 @Getter
 @Setter(AccessLevel.PROTECTED)
 public class Setting {
+
     public static final String SETTING_YAML = "/makhmudov/setting.yaml";
-    private static final Class[] TYPES = {
+    private static final Class<?>[] TYPES = {
             Wolf.class, Bear.class, Boar.class, Boa.class, Fox.class, Eagle.class, //Yovvoyi
             Horse.class, Mouse.class, Deer.class, Rabbit.class,
             Goat.class, Sheep.class, Buffalo.class, Duck.class, Caterpillar.class, //Xonaki
             Grass.class,};
     public static final Organism[] PROTOTYPES = EntityScanner.createPrototypes(TYPES);
 
-
+//=====================================
 
     private static volatile Setting SETTING;
 
@@ -45,22 +46,23 @@ public class Setting {
         }
         return setting;
     }
-
+//==========================================
 
 
 
     public final Life life = new Life();
     public final Console console = new Console();
     public final Window window = new Window();
+
     @Getter(AccessLevel.PROTECTED)
     private Map<String, Map<String, Integer>> foodMap = new LinkedHashMap<>();
 
     public Map<String, Integer> getFoodMap(String keyName) {
         this.foodMap.putIfAbsent(keyName, new LinkedHashMap<>());
-        return this.foodMap.get(keyName);
+        return foodMap.get(keyName);
     }
 
-
+//==================================
 
     private Setting() {
         loadFromDefault();
@@ -79,6 +81,7 @@ public class Setting {
             }
         }
     }
+
     @SneakyThrows
     private void updateFromYaml() {
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
@@ -89,7 +92,7 @@ public class Setting {
         }
     }
 
-
+//==============================
 
     @Override
     public String toString() {
@@ -101,4 +104,5 @@ public class Setting {
             throw new RuntimeException(e);
         }
     }
+//    ===============================
 }

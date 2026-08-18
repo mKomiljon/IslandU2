@@ -6,6 +6,8 @@ import com.javarush.island.makhmudov.entity.organism.Organism;
 import java.util.List;
 
 public interface Initialization {
+
     void fill(Cell cell, double persentProbably);
+
     List<Organism> getAllPrototypes();
 }

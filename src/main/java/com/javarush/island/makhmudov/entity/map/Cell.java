@@ -13,7 +13,8 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 
 public class Cell {
-    private final List<Cell> nextcell = new ArrayList<>();
+
+    private final List<Cell> nextCell = new ArrayList<>();
     @Getter
     private final Lock lock = new ReentrantLock(true);
     @Getter
@@ -21,10 +22,10 @@ public class Cell {
 
     public void updateNextCell(GameMap map, int row, int col) {
         Cell[][] cells = map.getCells();
-        if (row > 0) nextcell.add(cells[row - 1][col]);
-        if (col > 0) nextcell.add(cells[row][col - 1]);
-        if (row < map.getRows() - 1) nextcell.add(cells[row + 1][col]);
-        if (col < map.getCols() - 1) nextcell.add(cells[row][col + 1]);
+        if (row > 0) nextCell.add(cells[row - 1][col]);
+        if (col > 0) nextCell.add(cells[row][col - 1]);
+        if (row < map.getRows() - 1) nextCell.add(cells[row + 1][col]);
+        if (col < map.getCols() - 1) nextCell.add(cells[row][col + 1]);
     }
 
     public Cell getNextCell(int countStep) {
@@ -32,7 +33,7 @@ public class Cell {
         Cell currentCell = this;
         while (visitedCells.size() < countStep) {
             var nextCells = currentCell
-                    .nextcell
+                    .nextCell
                     .stream()
                     .filter(cell -> !visitedCells.contains(cell))
                     .toList();
@@ -49,7 +50,7 @@ public class Cell {
     }
 
     public int getNextCellCount() {
-        return nextcell.size();
+        return nextCell.size();
     }
 
     @Override

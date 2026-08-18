@@ -9,6 +9,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 public class EntityScanner {
+
     private EntityScanner() {
     }
 
@@ -38,7 +39,8 @@ public class EntityScanner {
         try {
             Constructor<?> constructor = type.getConstructor(String.class, String.class, Limit.class);
             return (Organism) constructor.newInstance(name, icon, limit);
-        } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+        } catch (NoSuchMethodException | InstantiationException | IllegalAccessException |
+                 InvocationTargetException e) {
             throw new GameException("not found Entity constructor", e);
         }
     }

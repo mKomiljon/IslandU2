@@ -54,6 +54,7 @@ public abstract class Organism implements Movable, Eating, Reproducible, Cloneab
 
     @Override
     protected Organism clone() throws CloneNotSupportedException {
+
         Organism clone = (Organism) super.clone();
         clone.id = idCounter.incrementAndGet();
         clone.weight = Rnd.random(limit.getMaxWeight() / 2, limit.getMaxWeight());
@@ -62,6 +63,7 @@ public abstract class Organism implements Movable, Eating, Reproducible, Cloneab
 
     @SuppressWarnings("unchecked")
     public static <T extends Organism> T clone(T original) {
+
         try {
             return (T) original.clone();
         } catch (CloneNotSupportedException e) {
@@ -74,19 +76,15 @@ public abstract class Organism implements Movable, Eating, Reproducible, Cloneab
         return cell.getResidents().get(this.getType()).contains(this);
     }
 
-    private boolean contains(Organism organism) {
-        return true;
-    }
-
 
     protected boolean safeDie(Cell target) {
         target.getLock().lock();
         try {
             return isHere(target)
                     && target
-                    .getResidents()
-                    .get(type)
-                    .remove(this);
+                            .getResidents()
+                            .get(type)
+                            .remove(this);
         } finally {
             target.getLock().unlock();
         }
@@ -126,7 +124,7 @@ public abstract class Organism implements Movable, Eating, Reproducible, Cloneab
     protected boolean safeAddTo(Cell cell) {
         cell.getLock().lock();
         try {
-            Organism organisms = cell
+            Organisms organisms = cell
                     .getResidents()
                     .get(getType());
             int maxCount = getLimit().getMaxCountInCell();
@@ -137,19 +135,11 @@ public abstract class Organism implements Movable, Eating, Reproducible, Cloneab
         }
     }
 
-    private boolean add(Organism organism) {
-        return true;
-    }
-
-    private int size() {
-        return 0;
-    }
-
     protected boolean safePollFrom(Cell cell) {
         cell.getLock().lock();
         try {
             Residents residents = cell.getResidents();
-            Organism organisms = residents.get(getType());
+            Organisms organisms = residents.get(getType());
             return isHere(cell) && organisms.remove(this);
         } finally {
             cell.getLock().unlock();
@@ -194,14 +184,6 @@ public abstract class Organism implements Movable, Eating, Reproducible, Cloneab
             currentCell.getLock().unlock();
         }
         return foodFound;
-    }
-
-    private Iterator<Organism> iterator() {
-        return null;
-    }
-
-    private boolean isEmpty() {
-        return true;
     }
 
     private double getNeedFood() {

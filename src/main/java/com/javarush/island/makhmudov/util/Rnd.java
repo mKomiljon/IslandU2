@@ -3,6 +3,7 @@ package com.javarush.island.makhmudov.util;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Rnd {
+
     private Rnd() {
     }
 
